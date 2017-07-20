@@ -2,7 +2,7 @@
 # David Kalish
 import random
 
-room_dict = {
+ROOM_DICT = {
     "room_one":
         {"monster": True},
     "room_two": {
@@ -18,12 +18,13 @@ def main():
 def roomOne(health, have_key):
     while True:
         print("You are in Room 1")
-        if room_dict["room_one"]["monster"]:
+        if ROOM_DICT["room_one"]["monster"]:
             m_name = "skeleton"
-            print("You have encountered a {}! Prepare for battle.".format(m_name))
+            m_health = 10
+            print("You have encountered a {} with {} health! Prepare for battle.".format(m_name, m_health))
             input()
-            health = fight(health, m_name, 10)
-            room_dict["room_one"]["monster"] = False
+            health = fight(health, m_name, m_health)
+            ROOM_DICT["room_one"]["monster"] = False
             print("Returning to Room 1")
         else:
             print("There's nothing here.")
@@ -34,14 +35,15 @@ def roomOne(health, have_key):
 def roomTwo(health, have_key):
     while True:
         print("You are in Room 2")
-        if room_dict["room_two"]["monster"]:
+        if ROOM_DICT["room_two"]["monster"]:
             m_name = "zombie"
-            print("You have encountered a {}! Prepare for battle.".format(m_name))
+            m_health = 15
+            print("You have encountered a {} with {} health! Prepare for battle.".format(m_name, m_health))
             input()
-            health = fight(health, m_name, 15)
-            room_dict["room_two"]["monster"] = False
+            health = fight(health, m_name, m_health)
+            ROOM_DICT["room_two"]["monster"] = False
             print("Returning to Room 2")
-        if room_dict["room_two"]["key"]:
+        if ROOM_DICT["room_two"]["key"]:
             take_key = yesNo(input("You see a key. Want to pick it up? y/n\n"))
             if take_key:
                 print("You now have the key!")
