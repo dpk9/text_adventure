@@ -83,9 +83,9 @@ def roomOne(health, have_blue_card):
         # Otherwise, let it loop back to the start of the room.
 
 def roomTwo(health, have_blue_card):
-    """The second room has a monster and a blue card.  Player fights the 
-    monster if it hasn't been killed on a previous visit, and is prompted to 
-    take the card if it hasn't been taken on a previous visit. The player can 
+    """The second room has a monster and a blue card.  Player fights the
+    monster if it hasn't been killed on a previous visit, and is prompted to
+    take the card if it hasn't been taken on a previous visit. The player can
     either move on to Room 3 or return to Room 1.
     """
     global ROOM_DICT
