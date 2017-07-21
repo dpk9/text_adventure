@@ -16,7 +16,8 @@ def main():
     """
     health = 100
     have_blue_card = False
-    global ROOM_DICT = {
+    global ROOM_DICT
+    ROOM_DICT = {
         "room_one":
             {"monster": True},
         "room_two": {
@@ -63,7 +64,7 @@ def roomOne(health, have_blue_card):
             m_name = "skeleton"
             m_health = 10
             print("You have encountered a {} with {} health! Prepare for battle.".format(m_name, m_health))
-            input()
+            raw_input()
             # Go to the fight() function to battle the monster. It returns the
             # player's health, so be sure to save that data
             health = fight(health, m_name, m_health)
@@ -76,7 +77,7 @@ def roomOne(health, have_blue_card):
             print("There's nothing here.")
         # Ask player if they want to go to the next room. Use the yesNo()
         # function to validate their input.
-        proceed = yesNo(input("Do you want to go to Room 2?\n"))
+        proceed = yesNo(raw_input("Do you want to go to Room 2?\n"))
         # If the player wants to go to the next room, send them there.
         if proceed:
             roomTwo(health, have_blue_card)
@@ -96,27 +97,28 @@ def roomTwo(health, have_blue_card):
             m_name = "zombie"
             m_health = 15
             print("You have encountered a {} with {} health! Prepare for battle.".format(m_name, m_health))
-            input()
+            raw_input()
             health = fight(health, m_name, m_health)
             ROOM_DICT["room_two"]["monster"] = False
         # if the blue card hasn't been taken already, ask the user if they want
         # to take it
         if ROOM_DICT["room_two"]["blue_card"]:
-            take_blue_card = yesNo(input("You see a blue card. Want to pick it up? y/n\n"))
+            take_blue_card = yesNo(raw_input("You see a blue card. Want to pick it up? y/n\n"))
             if take_blue_card:
                 print("You now have the blue card!")
                 have_blue_card = True
+                ROOM_DICT["room_two"]["blue_card"] = False
             else:
                 print("You have left the key on the floor.")
         print("From here, you can go back to Room 1 or proceed to Room 3.")
         # see where the player wants to go
-        proceed = yesNo(input("Do you want to go to Room 3?"))
+        proceed = yesNo(raw_input("Do you want to go to Room 3?"))
         if proceed:
             roomThree(health, have_blue_card)
         else:
-            proceed = yesNo(input("Do you want to go back to Room 1?"))
+            proceed = yesNo(raw_input("Do you want to go back to Room 1?"))
             if proceed:
-                roomeOne(health, have_blue_card)
+                roomOne(health, have_blue_card)
 
 def roomThree(health, have_blue_card):
     global ROOM_DICT
@@ -130,11 +132,11 @@ def fight(p_health, m_name, m_health):
     while True:
         # attack monster first. get random damage to monster, subtract that
         # from the monster's health
-        print("Attacking ", m_name)
+        print("Attacking {}.".format(m_name))
         m_dam = random.randint(1, 10)
         m_health -= m_dam
         print("You did {} damage to {}. It has {} health remaining.".format(m_dam, m_name, m_health))
-        input()
+        raw_input()
         # see if the monster is dead
         if m_health <= 0:
             print("You killed the {}!".format(m_name))
@@ -147,7 +149,7 @@ def fight(p_health, m_name, m_health):
             p_dam = random.randint(1, 10)
             p_health -= p_dam
             print("{} did {} damage to you. You have {} health remaining.".format(m_name, p_dam, p_health))
-            input()
+            raw_input()
             # If the player is dead, run the game over function.
             if p_health <= 0:
                 gameOver()
@@ -167,14 +169,14 @@ def yesNo(y_n):
             return False
         else:
             # An invalid response, re-prompt the player.
-            y_n = input("Invalid input. Try again with y/n.\n")
+            y_n = raw_input("Invalid input. Try again with y/n.\n")
 
 def gameOver():
     """Handles when the player dies.  It asks them if they want to try again or
     not.
     """
     print("You have died. Game over.")
-    retry = input("Try again? y/n\n")
+    retry = raw_input("Try again? y/n\n")
     # If they want to try again, go back to the main() function to reset
     # initial values and start over in the first room.
     if yesNo(retry):
